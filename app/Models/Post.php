@@ -15,7 +15,7 @@ class Post extends Model
         'description',
         'content',
         'status',
-        'thumbnail'
+        'thumbnail',
+        'user_id',
     ];
 }
-s
