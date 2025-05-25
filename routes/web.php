@@ -18,7 +18,17 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     //blog route
-    route::get('member/blogs', [BlogController::class, 'index']);
+    //route::get('member/blogs', [BlogController::class, 'index']);
+    //route::get('member/blogs/{post}/edit', [BlogController::class, 'edit']);
+
+    route::resource('/member/blogs', BlogController::class)->names([ //representasi dari url yang kita buka pada browser
+        'edit' => 'member.blogs.edit', //lokasi folder file blade
+        'index' => 'member.blogs.index',
+        'update' => 'member.blogs.update',
+        'create' => 'member.blogs.create',
+    ])->parameters([
+        'blogs' => 'post'
+    ]);
 });
 
 require __DIR__ . '/auth.php';
