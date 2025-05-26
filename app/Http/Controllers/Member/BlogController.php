@@ -13,10 +13,15 @@ class BlogController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
-        $data = Post::where("user_id", $user->id)->orderBy('id', 'desc')->paginate(3);
+        $search = $request->search;
+        $data = Post::where("user_id", $user->id)->where(function ($query) use ($search) {
+            if ($search) {
+                $query->where('title', 'like', "%{$search}%")->orWhere('content', 'like', "%{$search}%");
+            }
+        })->orderBy('id', 'desc')->paginate(3)->withQueryString(); //withQueryString() digunakan u mengikutkan query search ketika pindah pagination
         return view('member.blogs.index', compact('data'));
     }
 
@@ -132,7 +137,11 @@ class BlogController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        if (isset($post->thumbnail) && file_exists(public_path(getenv('CUSTOM_THUMBNAIL_LOCATION')) . "/" . $post->thumbnail)) {
+            unlink(public_path(getenv('CUSTOM_THUMBNAIL_LOCATION')) . "/" . $post->thumbnail);
+        }
+        Post::where('id', $post->id)->delete();
+        return redirect()->route('member.blogs.index')->with('success', 'Data berhasil dihapus');
     }
 
     private function generateSlug($title, $id = null)

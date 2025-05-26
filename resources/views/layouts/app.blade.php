@@ -27,7 +27,14 @@
         @isset($header)
         <header class="bg-white shadow">
             <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                {{ $header }}
+                <div class="block md:flex justify-between">
+                    <div>{{ $header }}</div>
+                    <div>
+                        @isset($headerRight)
+                        {{ $headerRight }}
+                        @endisset
+                    </div>
+                </div>
 
                 @if ($errors->any())
                 <div class="max-w-7xl mx-auto bg-red-500 pr-3 pl-3 p-2 mt-3 text-white rounded-md">
