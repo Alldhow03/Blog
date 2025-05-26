@@ -40,7 +40,7 @@
                             <div>
                                 <x-input-label for="file_input" value="Thumbnail" />
                                 @isset($data->thumbnail)
-                                <img src="{{asset(getenv('CUSTOM_THUMBNAIL_LOCATION').'/''.$data->thumbnail)}}"
+                                <img src="{{asset(getenv('CUSTOM_THUMBNAIL_LOCATION').'/'.$data->thumbnail)}}"
                                     class="rounded-md border-gray-300 max-w-40 p-2" />
                                 @endisset
                                 <input type="file" name="thumbnail" class="w-full border border-gray-300 rounded-md" />
