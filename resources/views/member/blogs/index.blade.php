@@ -48,7 +48,8 @@
                                     <a href='{{ route("member.blogs.edit", ["post"=> $value->id]) }}'
                                         class="text-blue-600 hover:text-blue-400 px-2">edit</a>
 
-                                    <a href='' class="text-blue-600 hover:text-blue-400 px-2">lihat</a>
+                                    <a href="{{ route('blog-detail', ['slug'=>$value->slug]) }}"
+                                        class="text-blue-600 hover:text-blue-400 px-2">lihat</a>
 
                                     <form class="inline" method="post"
                                         onsubmit="return confirm('Apakah ada yakin menghapus data ini?')"
